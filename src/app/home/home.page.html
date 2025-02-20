@@ -1,20 +1,33 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-title>
+			BCBSM
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+	<h1>Sample App with ion- datetime component.</h1>
+
+	<form [formGroup]="testForm" (ngSubmit)="submitForm()">
+		<ion-item>
+		  <ion-label position="stacked">Select a date from future</ion-label>
+		  <ion-input id="date" [value]="selectedDate" placeholder="Select Date"></ion-input>
+		  <ion-popover trigger="date">
+			<ng-template>
+			  	<ion-datetime presentation="date" formControlName="date" locale="en-US" [min]="minDate" [max]="maxDate" #popoverDate
+				  (ionChange)="setSelectedDate(popoverDate.value)"></ion-datetime>
+			</ng-template>
+		  </ion-popover>
+		</ion-item>
+		<ion-button expand="block" type="submit" [disabled]="!testForm.valid">Submit</ion-button>
+	</form>
+
+	<ul class="list" *ngIf="datesList.length">
+		<li *ngFor="let date of datesList">
+			<span class="label">{{date.label}}</span> : <span class="value">{{date.value}}</span>
+		</li>
+	</ul>
+
 </ion-content>
